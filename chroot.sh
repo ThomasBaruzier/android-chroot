@@ -47,7 +47,7 @@ get_args() {
       -nm|--no-mount) no_mount=true; shift;;
       -nu|--no-umount) no_umount=true; shift;;
       -m|--mount-only) mount_only=true; shift;;
-      -u|--umount-only) umount_only=trud; shift;;
+      -u|--umount-only) umount_only=true; shift;;
       -nk|--no-kill) no_kill=true; shift;;
       -nK|--no-force-kill) no_force_kill=true; shift;;
       -t|--termux) mount_termux=true; shift;;
