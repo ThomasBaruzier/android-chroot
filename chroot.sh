@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Config
+user='tyra'
+vnc_profile='Localhost'
 arch_path="/data/archlinux"
 sdcard_path="$arch_path/sdcard"
 termux_path="$arch_path/termux"
@@ -7,10 +10,9 @@ proc_path="$arch_path/proc"
 dev_path="$arch_path/dev"
 sys_path="$arch_path/sys"
 pts_path="$arch_path/dev/pts"
+bspwm_path="/home/$user/.config/bspwm/bspwmrc"
 
-vnc_profile='Localhost'
-bspwm_path='/home/tyra/.config/bspwm/bspwmrc'
-
+# Defaults
 no_mount=false
 no_umount=false
 mount_only=false
@@ -196,7 +198,7 @@ fi
 mount_all
 
 chroot "$arch_path" bin/bash -c "
-  if [ '$firefox' = true ]; then
+  if [ -f '$bspwm_path' ] && [ '$firefox' = true ]; then
     if pgrep -x firefox >/dev/null; then
       echo 'Firefox is already running'
     else
@@ -205,23 +207,27 @@ chroot "$arch_path" bin/bash -c "
         echo 'firefox &' >> '$bspwm_path'
       fi
     fi
-  else
+  elif [ -f '$bspwm_path' ] && [ '$firefox' != true ]; then
     grep -v 'firefox &' '$bspwm_path' > '$bspwm_path.tmp'
     mv '$bspwm_path.tmp' '$bspwm_path'
+  elif  [ ! -f '$bspwm_path' ] && [ '$firefox' = true ]; then
+    echo 'ERROR: bspwm is not setup. Cannot launch firefox'
   fi
 
-  chmod 755 '$bspwm_path'
-  chown 'tyra:tyra' '$bspwm_path'
+  if [ -f '$bspwm_path' ]; then
+    chmod 755 '$bspwm_path'
+    chown '$user:$user' '$bspwm_path'
+  fi
 
   if [ '$vnc_server' = true ]; then
     if pgrep -x Xvnc >/dev/null; then
       echo 'VNC server is already running'
     else
       echo 'Launching VNC server in the background'
-      vncsession tyra :0
+      vncsession '$user' :0
     fi
   fi
 
-  cd /home/tyra
-  su tyra
+  cd '/home/$user'
+  su '$user'
 " && end_session || end_session

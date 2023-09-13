@@ -92,7 +92,7 @@ HISTFILE="$HOME/.bash_history"
 PATH='/system/bin:/system/xbin:/sbin:/sbin/bin'
 ```
 
-9. Setup and configure the distribution.
+9. Setup and configure the distribution (basic setup).
 ```
 # Enter chroot
 ./chroot.sh --mount-only
@@ -110,9 +110,21 @@ nano /etc/pacman.conf # disable `CheckSpace`, enable `Color` and `ParallelDownlo
 pacman -R linux-aarch64 linux-firmware openssh net-tools netctl # remove optional packages
 pacman -Syu # run this command a few times if packages sync fails
 pacman -Sc --noconfirm # remove cache to save space
+
+# Setup users and sudo
+useradd -m <user>
+usermod -aG wheel <user>
+passwd root
+passwd <user>
+pacman -S sudo
+EDITOR=nano visudo # uncomment `%wheel ALL=(ALL:ALL) NOPASSWD: ALL`
+
+# Exit
+exit
+./chroot.sh --umount-only
 ```
 
-10. If everything works, you can try using the script for the first time.
+10. If everything worked as expected, you can try using the script for the first time.
 ```
 ./chroot.sh
 ```
