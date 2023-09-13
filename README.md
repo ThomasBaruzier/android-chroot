@@ -109,7 +109,7 @@ pacman -R linux-aarch64 linux-firmware linux-firmware-whence openssh net-tools #
 pacman -Syu # run this command a few times if packages sync fails
 pacman -Sc --noconfirm # remove cache to save space
 
-# Setup users and sudo
+# Setup users and sudo. Please modify the `user` value accordingly in chroot.sh
 userdel --remove alarm
 useradd -m <user>
 usermod -aG wheel <user>

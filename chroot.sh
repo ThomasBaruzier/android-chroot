@@ -4,6 +4,8 @@
 user='tyra'
 vnc_profile='Localhost'
 arch_path="/data/archlinux"
+
+# Constants
 sdcard_path="$arch_path/sdcard"
 termux_path="$arch_path/termux"
 proc_path="$arch_path/proc"
