@@ -137,7 +137,7 @@ source ~/.bashrc
 clean
 ```
 
-12. Setup the VNC server and viewer, bspwm, sxhkd, and firefox.
+12. Setup the VNC server and viewer, bspwm, sxhkd, yay, and firefox.
 ```
 <TODO>
 ```
