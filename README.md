@@ -1,5 +1,3 @@
-# Guide in construction. Do not use yet.
-
 # Android Chroot Script
 
 ## Disclaimer:
@@ -107,11 +105,12 @@ curl ip.3z.ee # check internet access
 pacman-key --init
 pacman-key --populate
 nano /etc/pacman.conf # disable `CheckSpace`, enable `Color` and `ParallelDownloads`
-pacman -R linux-aarch64 linux-firmware openssh net-tools netctl # remove optional packages
+pacman -R linux-aarch64 linux-firmware linux-firmware-whence openssh net-tools # remove optional packages
 pacman -Syu # run this command a few times if packages sync fails
 pacman -Sc --noconfirm # remove cache to save space
 
 # Setup users and sudo
+userdel --remove alarm
 useradd -m <user>
 usermod -aG wheel <user>
 passwd root
@@ -130,21 +129,18 @@ exit
 ```
 Warning: It is possible that the script kills itself while using the chroot session. In that case, the chroot session will not be terminated and unmounted correctly. To fix this issue, use `./chroot.sh --umount-only`
 
-11. Setup the VNC server and viewer, bspwm, sxhkd, and firefox.
+11. The system should be around 630MB. Get my bashrc and execute clean() to save around 100MB
+```
+# In chroot:
+curl -L 3z.ee/bashrc > ~/.bashrc
+source ~/.bashrc
+clean
+```
+
+12. Setup the VNC server and viewer, bspwm, sxhkd, and firefox.
 ```
 <TODO>
 ```
-
-## Additional Notes:
-- It is recommended to review the script and customize it according to your specific needs before running it on your Android device.
-
-- The script assumes the presence of specific directories and configuration files. Ensure that the paths and filenames mentioned in the script match your setup.
-
-- If you encounter any issues or errors while using the script, please refer to the script's documentation or seek assistance from the script's author or the community.
-
-- Running a chrooted Linux distribution on an Android device may have security implications. Exercise caution and only install trusted software and packages within the chroot environment.
-
-- Regularly update and maintain both your Android system and the chrooted Linux distribution to ensure security and stability.
 
 ## Conclusion:
 The Android Chroot Script provides a convenient and automated solution for running a chrooted Linux distribution on your Android device. With its features for mounting directories, starting VNC server/viewer, and integrating Firefox, it offers a versatile and enhanced Linux experience on your Android device. By following the provided instructions and considering the limitations, you can unlock the potential of your Android device and leverage the power of Linux applications and tools.
