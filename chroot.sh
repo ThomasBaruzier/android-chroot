@@ -11,6 +11,18 @@ pts_path="$arch_path/dev/pts"
 vnc_profile='Localhost'
 bspwm_path='/home/tyra/.config/bspwm/bspwmrc'
 
+no_mount=false
+no_umount=false
+mount_only=false
+umount_only=false
+no_kill=false
+no_force_kill=false
+mount_termux=false
+mount_sdcard=false
+vnc_server=false
+vnc_viewer=false
+firefox=false
+
 get_root() {
   if [ "$(id -u)" != 0 ]; then
     sudo sh $(readlink -f "$0") "$@"
@@ -92,21 +104,21 @@ unmount_directory() {
 }
 
 mount_all() {
-  [ "$no_mount" ] && return
+  [ "$no_mount" = true ] && return
   echo
   mount -o remount,dev,suid /data
   mount_directory /dev "$dev_path" bind && \
   mount_directory /dev/pts "$pts_path" bind &
   mount_directory /proc "$proc_path" proc &
   mount_directory /sys "$sys_path" sysfs &
-  [ "$mount_sdcard" ] && mount_directory /sdcard "$sdcard_path" bind &
-  [ "$mount_termux" ] && mount_directory /data/data/com.termux/files/home "$termux_path" bind &
+  [ "$mount_sdcard" = true ] && mount_directory /sdcard "$sdcard_path" bind &
+  [ "$mount_termux" = true ] && mount_directory /data/data/com.termux/files/home "$termux_path" bind &
   wait
   echo
 }
 
 unmount_all() {
-  [ "$no_umount" ] && return
+  [ "$no_umount" = true ] && return
   echo
   unmount_directory "$pts_path" && sleep 0.1 && \
   unmount_directory "$dev_path" &
@@ -137,11 +149,11 @@ terminate_chroot() {
 end_session() {
   sessions=$(ps a | grep "su .*$0" | grep -v 'grep' | wc -l)
   if [ "$sessions" = 1 ]; then
-    pkill Xvnc
+    if pgrep -x Xvnc; then pkill Xvnc; fi
     unmount_all
-    [ "$no_kill" ] && return
+    [ "$no_kill" = true ] && return
     terminate_chroot gracefully
-    [ "$no_force_kill" ] && return
+    [ "$no_force_kill" = true ] && return
     terminate_chroot forcefully
   else
     if [ "$sessions" = 2 ]; then
@@ -174,9 +186,9 @@ mkdir -p ~/.cache
 unset LD_PRELOAD
 
 # Options
-if [ "$mount_only" ]; then mount_all; exit; fi
-if [ "$umount_only" ]; then end_session; exit; fi
-if [ "$vnc_viewer" ]; then
+if [ "$mount_only" = true ]; then mount_all; exit; fi
+if [ "$umount_only" = true ]; then end_session; exit; fi
+if [ "$vnc_viewer" = true ]; then
   vnc_viewer >/dev/null &
 fi
 
@@ -184,7 +196,7 @@ fi
 mount_all
 
 chroot "$arch_path" bin/bash -c "
-  if [ '$firefox' ]; then
+  if [ '$firefox' = true ]; then
     if pgrep -x firefox >/dev/null; then
       echo 'Firefox is already running'
     else
@@ -201,7 +213,7 @@ chroot "$arch_path" bin/bash -c "
   chmod 755 '$bspwm_path'
   chown 'tyra:tyra' '$bspwm_path'
 
-  if [ '$vnc_server' ]; then
+  if [ '$vnc_server' = true ]; then
     if pgrep -x Xvnc >/dev/null; then
       echo 'VNC server is already running'
     else

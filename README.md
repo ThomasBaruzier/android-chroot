@@ -94,8 +94,22 @@ PATH='/system/bin:/system/xbin:/sbin:/sbin/bin'
 
 9. Setup and configure the distribution.
 ```
-su -c "LD_PRELOAD='' chroot /data/archlinux"
-<TODO>
+# Enter chroot
+./chroot.sh --mount-only
+LD_PRELOAD='' sudo chroot /data/archlinux bash
+
+# Setup DNS (Use any DNS you like)
+rm -f /etc/resolv.conf
+echo 'nameserver 9.9.9.9' > /etc/resolv.conf
+curl ip.3z.ee # check internet access
+
+# Setup pacman and packages
+pacman-key --init
+pacman-key --populate
+nano /etc/pacman.conf # disable `CheckSpace`, enable `Color` and `ParallelDownloads`
+pacman -R linux-aarch64 linux-firmware openssh net-tools netctl # remove optional packages
+pacman -Syu # run this command a few times if packages sync fails
+pacman -Sc --noconfirm # remove cache to save space
 ```
 
 10. If everything works, you can try using the script for the first time.
