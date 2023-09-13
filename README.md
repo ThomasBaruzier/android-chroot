@@ -143,4 +143,4 @@ clean
 ```
 
 ## Conclusion:
-The Android Chroot Script provides a convenient and automated solution for running a chrooted Linux distribution on your Android device. With its features for mounting directories, starting VNC server/viewer, and integrating Firefox, it offers a versatile and enhanced Linux experience on your Android device. By following the provided instructions and considering the limitations, you can unlock the potential of your Android device and leverage the power of Linux applications and tools.
+The Android Chroot Script provides a convenient and automated solution for running a chrooted Linux distribution on your Android device. With its features for mounting directories, starting VNC server/viewer, and integrating Firefox, it offers a versatile and enhanced Linux experience on your Android device.
