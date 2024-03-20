@@ -12,6 +12,7 @@ proc_path="$arch_path/proc"
 dev_path="$arch_path/dev"
 sys_path="$arch_path/sys"
 pts_path="$arch_path/dev/pts"
+vendor_path="$arch_path/vendor"
 bspwm_path="/home/$user/.config/bspwm/bspwmrc"
 
 # Defaults
@@ -23,6 +24,7 @@ no_kill=false
 no_force_kill=false
 mount_termux=false
 mount_sdcard=false
+mount_vendor=false
 vnc_server=false
 vnc_viewer=false
 firefox=false
@@ -52,6 +54,7 @@ get_args() {
         echo '  -nK, --no-force-kill      Do not use SIGKILL if SIGTERM fails'
         echo '  -t,  --termux             Add $HOME to the list of dirs to mount'
         echo '  -s,  --sdcard             Add /sdcard to the list of dirs to mount'
+        echo '  -v,  --vendor             Add /vendor to the list of dirs to mount'
         echo '  -vs, --vnc-server         Start VNC server in background'
         echo "  -vv, --vnc-viewer <name>  Start AVNC, profile $vnc_profile + VNC server"
         echo '  -f,  --firefox            Start firefox, VNC viewer and VNC server'
@@ -68,6 +71,7 @@ get_args() {
       -nK|--no-force-kill) no_force_kill=true; shift;;
       -t|--termux) mount_termux=true; shift;;
       -s|--sdcard) mount_sdcard=true; shift;;
+      -v|--vendor) mount_vendor=true; shift;;
       -vs|--vnc-server) vnc_server=true; shift;;
       -vv|--vnc-viewer) vnc_viewer=true; vnc_server=true; shift
         first_letter=$(echo $1 | grep -o '^.')
@@ -117,6 +121,7 @@ mount_all() {
   mount_directory /sys "$sys_path" sysfs &
   [ "$mount_sdcard" = true ] && mount_directory /sdcard "$sdcard_path" bind &
   [ "$mount_termux" = true ] && mount_directory /data/data/com.termux/files/home "$termux_path" bind &
+  [ "$mount_vendor" = true ] && mount_directory /vendor "$vendor_path" bind &
   wait
   echo
 }
@@ -130,6 +135,7 @@ unmount_all() {
   unmount_directory "$sys_path" &
   unmount_directory "$sdcard_path" &
   unmount_directory "$termux_path" &
+  unmount_directory "$vendor_path" &
   wait
   echo
 }

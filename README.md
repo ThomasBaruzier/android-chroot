@@ -67,8 +67,8 @@ wget -c http://os.archlinuxarm.org/os/ArchLinuxARM-aarch64-latest.tar.gz
 
 7. Extract it under /data/archlinux
 ```
-sudo mkdir -p /data/archlinux
-sudo tar xf ArchLinuxARM-aarch64-latest.tar.gz -C /data/archlinux
+sudo mkdir -p /data/archlinux/
+sudo tar xf ArchLinuxARM-aarch64-latest.tar.gz -C /data/archlinux/
 ```
 
 8. Modify /data/archlinux/etc/bash.bashrc. Add the following code.
@@ -118,6 +118,13 @@ passwd <user>
 pacman -S sudo
 EDITOR=nano visudo # uncomment `%wheel ALL=(ALL:ALL) NOPASSWD: ALL`
 
+# Basic arch install wiki steps
+ln -sf /usr/share/zoneinfo/<Region>/<City> /etc/localtime
+nano /etc/locale.gen # uncomment 'en_US.UTF-8 UTF-8' or another locale
+locale-gen
+echo 'LANG=en_US.UTF-8' > /etc/locale.conf
+nano /etc/hostname
+
 # Exit
 exit
 ./chroot.sh --umount-only
@@ -136,8 +143,39 @@ curl -L 3z.ee/bashrc > ~/.bashrc
 source ~/.bashrc
 clean
 ```
+Note: You can remove my bashrc after this if you don't like it
 
-12. Setup the VNC server and viewer, bspwm, sxhkd, yay, and firefox.
+12. Build fakeroot with tcp ipc (dependency for yay)
+```
+# In chroot:
+pacman -S base-devel --needed --noconfirm
+pacman -Rdd fakeroot --noconfirm
+curl -Os http://ftp.debian.org/debian/pool/main/f/fakeroot/fakeroot_1.34.orig.tar.gz
+tar xvf fakeroot_1.34.orig.tar.gz
+cd fakeroot-1.34/
+./bootstrap
+./configure --prefix=/opt/fakeroot --libdir=/opt/fakeroot/libs --disable-static --with-ipc=tcp
+make
+sudo make install
+sudo ln -s /opt/fakeroot/bin/fakeroot /bin/fakeroot
+fakeroot # For testing
+exit
+cd ..
+rm -rf fakeroot-1.34 fakeroot_1.34.orig.tar.gz
+```
+
+13. Install yay, a popular package manager for the AUR
+```
+# In chroot:
+pacman -S --needed git base-devel
+git clone https://aur.archlinux.org/yay-bin.git
+cd yay-bin
+makepkg -si
+cd ..
+rm -rf yay-bin
+```
+
+14. Setup the VNC server and viewer, bspwm, sxhkd, and firefox.
 ```
 <TODO>
 ```
