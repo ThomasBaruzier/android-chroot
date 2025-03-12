@@ -123,7 +123,7 @@ ln -sf /usr/share/zoneinfo/<Region>/<City> /etc/localtime
 nano /etc/locale.gen # uncomment 'en_US.UTF-8 UTF-8' or another locale
 locale-gen
 echo 'LANG=en_US.UTF-8' > /etc/locale.conf
-nano /etc/hostname
+nano /etc/hostname # set the hostname of your choice
 
 # Exit
 exit
@@ -150,9 +150,9 @@ Note: You can remove my bashrc after this if you don't like it
 # In chroot:
 pacman -S base-devel --needed --noconfirm
 pacman -Rdd fakeroot --noconfirm
-curl -Os http://ftp.debian.org/debian/pool/main/f/fakeroot/fakeroot_1.34.orig.tar.gz
-tar xvf fakeroot_1.34.orig.tar.gz
-cd fakeroot-1.34/
+curl -Os http://ftp.debian.org/debian/pool/main/f/fakeroot/fakeroot_1.37.orig.tar.gz
+tar xvf fakeroot_1.37.orig.tar.gz
+cd fakeroot-1.37/
 ./bootstrap
 ./configure --prefix=/opt/fakeroot --libdir=/opt/fakeroot/libs --disable-static --with-ipc=tcp
 make
@@ -161,7 +161,7 @@ sudo ln -s /opt/fakeroot/bin/fakeroot /bin/fakeroot
 fakeroot # For testing
 exit
 cd ..
-rm -rf fakeroot-1.34 fakeroot_1.34.orig.tar.gz
+rm -rf fakeroot-1.37 fakeroot_1.37.orig.tar.gz
 ```
 
 13. Install yay, a popular package manager for the AUR
