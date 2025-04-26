@@ -179,6 +179,3 @@ rm -rf yay-bin
 ```
 <TODO>
 ```
-
-## Conclusion:
-The Android Chroot Script provides a convenient and automated solution for running a chrooted Linux distribution on your Android device. With its features for mounting directories, starting VNC server/viewer, and integrating Firefox, it offers a versatile and enhanced Linux experience on your Android device.
