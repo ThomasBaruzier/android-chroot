@@ -237,5 +237,5 @@ chroot "$arch_path" bin/bash -c "
   fi
 
   cd '/home/$user'
-  su '$user'
+  /bin/su '$user'
 " && end_session || end_session

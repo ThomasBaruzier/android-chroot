@@ -76,8 +76,8 @@ sudo tar xf ArchLinuxARM-aarch64-latest.tar.gz -C /data/archlinux/
 sudo nano /data/archlinux/etc/bash.bashrc
 ```
 ```
-if [ "$(id -u)" != 0 ]; then
-    HOME="/home/$(whoami)"
+if [ "$(/bin/id -u)" != 0 ]; then
+    HOME="/home/$(/bin/whoami)"
     cd
 else
     HOME='/root'
