@@ -54,7 +54,7 @@ In this tutorial, we are going to use Arch Linux ARM. To use any other distribut
 
 5. Download Termux, install git, clone this repo.
 ```
-apt update -y && apt upgrade -y && apt install git wget nano -y
+apt update -y && apt upgrade -y && apt install git wget nano sudo -y
 git clone https://github.com/ThomasBaruzier/android-chroot ~/chroot
 cd ~/chroot
 chmod +x chroot.sh
