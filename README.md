@@ -83,18 +83,18 @@ else
     HOME='/root'
 fi
 
-LD_PRELOAD=''
-TMPDIR='/tmp'
-PREFIX='/usr'
-HISTFILE="$HOME/.bash_history"
-PATH='/system/bin:/system/xbin:/sbin:/sbin/bin'
+export LD_PRELOAD=''
+export TMPDIR='/tmp'
+export PREFIX='/usr'
+exoort HISTFILE="$HOME/.bash_history"
+export PATH='/system/bin:/system/xbin:/sbin:/sbin/bin'
 ```
 
 9. Setup and configure the distribution (basic setup).
 ```
 # Enter chroot
 ./chroot.sh --mount-only
-LD_PRELOAD='' sudo chroot /data/archlinux bash
+LD_PRELOAD='' su -c chroot /data/archlinux bash
 
 # Setup DNS (Use any DNS you like)
 rm -f /etc/resolv.conf
