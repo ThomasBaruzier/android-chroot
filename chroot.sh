@@ -158,7 +158,7 @@ terminate_chroot() {
 
 end_session() {
   sessions=$(ps a | grep "su .*$0" | grep -v 'grep' | wc -l)
-  if [ "$sessions" = 1 ]; then
+  if [ "$sessions" = 0 ] || [ "$sessions" = 1 ]; then
     if pgrep -x Xvnc; then pkill Xvnc; fi
     unmount_all
     [ "$no_kill" = true ] && return
