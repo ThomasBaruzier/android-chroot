@@ -150,9 +150,9 @@ Note: You can remove my bashrc after this if you don't like it
 # In chroot:
 pacman -S base-devel --needed --noconfirm
 pacman -Rdd fakeroot --noconfirm
-curl -O http://ftp.debian.org/debian/pool/main/f/fakeroot/fakeroot_1.37.orig.tar.gz
-tar xvf fakeroot_1.37.orig.tar.gz
-cd fakeroot-1.37/
+curl -O "https://ftp.debian.org/debian/pool/main/f/fakeroot/$(curl 'https://ftp.debian.org/debian/pool/main/f/fakeroot/' | grep -Eo 'fakeroot_[0-9\.]+.orig.tar.gz' | sort -n | tail -n 1)"
+tar xvf fakeroot_*.orig.tar.gz
+cd fakeroot-*/
 ./bootstrap
 ./configure --prefix=/opt/fakeroot --libdir=/opt/fakeroot/libs --disable-static --with-ipc=tcp
 make
