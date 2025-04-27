@@ -86,7 +86,7 @@ fi
 export LD_PRELOAD=''
 export TMPDIR='/tmp'
 export PREFIX='/usr'
-exoort HISTFILE="$HOME/.bash_history"
+export HISTFILE="$HOME/.bash_history"
 export PATH='/system/bin:/system/xbin:/sbin:/sbin/bin'
 ```
 
