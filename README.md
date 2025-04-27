@@ -161,7 +161,7 @@ sudo ln -s /opt/fakeroot/bin/fakeroot /bin/fakeroot
 fakeroot # For testing
 exit
 cd ..
-rm -rf fakeroot-*/ fakeroot_*.orig.tar.gz
+rm -rf fakeroot-*
 ```
 
 13. Install yay, a popular package manager for the AUR
