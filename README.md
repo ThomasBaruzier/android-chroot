@@ -150,7 +150,7 @@ Note: You can remove my bashrc after this if you don't like it
 # In chroot:
 pacman -S base-devel --needed --noconfirm
 pacman -Rdd fakeroot --noconfirm
-curl -Os http://ftp.debian.org/debian/pool/main/f/fakeroot/fakeroot_1.37.orig.tar.gz
+curl -O http://ftp.debian.org/debian/pool/main/f/fakeroot/fakeroot_1.37.orig.tar.gz
 tar xvf fakeroot_1.37.orig.tar.gz
 cd fakeroot-1.37/
 ./bootstrap
