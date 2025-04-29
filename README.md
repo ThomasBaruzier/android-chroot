@@ -91,42 +91,52 @@ export PATH='/system/bin:/system/xbin:/sbin:/sbin/bin'
 ```
 
 9. Setup and configure the distribution (basic setup).
+### Enter chroot
 ```
-# Enter chroot
 ./chroot.sh --mount-only
 LD_PRELOAD='' su -c chroot /data/archlinux bash
-
-# Setup DNS (Use any DNS you like)
+```
+### Setup DNS (Use any DNS you like)
+```
+# In chroot
 rm -f /etc/resolv.conf
 echo 'nameserver 9.9.9.9' > /etc/resolv.conf
 curl ip.3z.ee # check internet access
-
-# Setup pacman and packages
+```
+### Setup pacman and packages
+```
 pacman-key --init
 pacman-key --populate
-nano /etc/pacman.conf # disable `CheckSpace`, enable `Color` and `ParallelDownloads`
-pacman -R linux-aarch64 linux-firmware linux-firmware-whence openssh net-tools # remove optional packages
-pacman -Syu # run this command a few times if packages sync fails
+sed -iE 's/^#(CheckSpace)/\1/; s/^#(Color|ParallelDownloads)/\1/' /etc/pacman.conf # disable `CheckSpace`, enable `Color` and `ParallelDownloads`
+pacman -R --noconfirm linux-aarch64 linux-firmware linux-firmware-whence openssh net-tools # remove optional packages
+while ! pacman -Syu --noconfirm; do sleep 1; done # rarely works first try because of network instability, so we loop it until it finishes
 pacman -Sc --noconfirm # remove cache to save space
-
-# Setup users and sudo. Please modify the `user` value accordingly in chroot.sh
+```
+### Setup users and sudo. Please modify the `user` value accordingly in chroot.sh
+```
+USER=changeme
 userdel --remove alarm
-useradd -m <user>
-usermod -aG wheel <user>
+useradd -m "$USER"
+usermod -aG wheel "$USER"
 passwd root
-passwd <user>
+```
+```
+passwd "$USER"
 pacman -S sudo
 EDITOR=nano visudo # uncomment `%wheel ALL=(ALL:ALL) NOPASSWD: ALL`
-
-# Basic arch install wiki steps
+```
+### Basic arch install wiki steps
+```
 ln -sf /usr/share/zoneinfo/<Region>/<City> /etc/localtime
+```
+```
 nano /etc/locale.gen # uncomment 'en_US.UTF-8 UTF-8' or another locale
 locale-gen
-echo 'LANG=en_US.UTF-8' > /etc/locale.conf
-nano /etc/hostname # set the hostname of your choice
-
-# Exit
-exit
+echo 'LANG=en_US.UTF-8' > /etc/locale.conf # LANG is what you uncommented before
+echo 'chroot' > /etc/hostname # set the hostname of your choice
+```
+```
+exit # exit chroot
 ./chroot.sh --umount-only
 ```
 
@@ -159,6 +169,8 @@ make
 sudo make install
 sudo ln -s /opt/fakeroot/bin/fakeroot /bin/fakeroot
 fakeroot # For testing
+```
+```
 exit
 cd ..
 rm -rf fakeroot*
