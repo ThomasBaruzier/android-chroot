@@ -114,7 +114,9 @@ pacman -Sc --noconfirm # remove cache to save space
 ```
 ### Setup users and sudo. Please modify the `user` value accordingly in chroot.sh
 ```
-USER=changeme
+USER=user # local user name, change me
+```
+```
 userdel --remove alarm
 useradd -m "$USER"
 usermod -aG wheel "$USER"
