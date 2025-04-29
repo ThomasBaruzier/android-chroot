@@ -175,7 +175,7 @@ sudo ln -s /opt/fakeroot/bin/fakeroot /bin/fakeroot
 fakeroot # For testing
 ```
 ```bash
-exit
+exit # exit fakeroot shell and go back to chroot
 cd ..
 rm -rf fakeroot*
 ```
