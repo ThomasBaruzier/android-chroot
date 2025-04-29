@@ -35,7 +35,7 @@ Also, here is a stupid mistake I made that you should avoid: I tried to "sudo rm
 
 2. **Manual Setup**: This script is NOT a ONE-CLICK solution. You will have to configure and dig stuff by yourself. You will need and use some Linux knowledge. If you don't, don't go further. ChatGPT will not unbrick your device.
 
-3. **Compatibility**: The script's compatibility may vary depending on the Android device and the Linux distribution used. This script was tested on a Mi 11 Ultra and a Mi 9T Pro, running Miui 14 EU ROM and LineageOS 20, both based on Android 13 and rooted with Magisk. The Linux distribution used is Arch Linux ARM and was configured to specifically run with chroot capabilities in mind. More on that later.
+3. **Compatibility**: The script's compatibility may vary depending on the Android device and the Linux distribution used. This script was tested on a Mi 11 Ultra and a Mi 9T Pro, running Miui 14 from xiaomi.eu, HyperOS 1 and 2 (also from xiaomi.eu) and LineageOS 20, based on Android 13 and 14, all similarily rooted with Magisk. The Linux distribution used is Arch Linux ARM and was configured to specifically run with chroot capabilities in mind. More on that later.
 
 4. **Root Access**: The script requires root access in Termux or any other terminal emulator on the Android device, in order to use the chroot command in the first place.
 
@@ -65,13 +65,13 @@ chmod +x chroot.sh
 wget -c http://os.archlinuxarm.org/os/ArchLinuxARM-aarch64-latest.tar.gz
 ```
 
-7. Extract it under /data/archlinux
+7. Extract it under `/data/archlinux`
 ```bash
 sudo mkdir -p /data/archlinux/
 sudo tar xf ArchLinuxARM-aarch64-latest.tar.gz -C /data/archlinux/
 ```
 
-8. Modify /data/archlinux/etc/bash.bashrc. Add the following code.
+8. Modify `/data/archlinux/etc/bash.bashrc`. Add the following code.
 ```bash
 sudo nano /data/archlinux/etc/bash.bashrc
 ```
@@ -112,24 +112,26 @@ pacman -R --noconfirm linux-aarch64 linux-firmware linux-firmware-whence openssh
 while ! pacman -Syu --noconfirm; do sleep 1; done # rarely works first try because of network instability, so we loop it until it finishes
 pacman -Sc --noconfirm # remove cache to save space
 ```
-### Setup users and sudo. Please modify the `user` value accordingly in chroot.sh
+### Setup users and sudo. Please modify the `user` value in `chroot.sh`, here: https://github.com/ThomasBaruzier/android-chroot/blob/c23c9e70bc0b86b6dcdc2a4c4981b6a3801e63aa/chroot.sh#L4
 ```bash
-USER=user # local user name, change me
+USER='tyra' # local user name, change me
 ```
 ```bash
 userdel --remove alarm
 useradd -m "$USER"
 usermod -aG wheel "$USER"
-passwd root
 ```
 ```bash
-passwd "$USER"
+passwd root # change root password
+passwd "$USER" # change user password
+```
+```bash
 pacman -S sudo
 EDITOR=nano visudo # uncomment `%wheel ALL=(ALL:ALL) NOPASSWD: ALL`
 ```
 ### Basic arch install wiki steps
 ```bash
-ln -sf /usr/share/zoneinfo/<Region>/<City> /etc/localtime
+ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime # change Europe and Paris to your current localisation 
 ```
 ```bash
 nano /etc/locale.gen # uncomment 'en_US.UTF-8 UTF-8' or another locale
