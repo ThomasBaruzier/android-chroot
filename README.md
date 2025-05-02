@@ -14,7 +14,7 @@
 This script uses root capabilities to be able to run. Please read this ENTIRE readme to limit the risk of harming your device, or even brick it. I really encourage you to use this tool with care, as I almost bricked my device and wiped all my data while developing it. Please see [#Limitations/UNSAFE](https://github.com/ThomasBaruzier/android-chroot/blob/main/README.md#limitations) for further details.
 
 ## Description:
-The Android Chroot Script is a powerful tool that enables you to run a chrooted Linux distribution on your Android device. It provides a convenient way to access and utilize various Linux applications and tools on your Android device, enhancing its functionality and versatility. This script automates the process of setting up and managing the chroot environment, allowing you to make the most out of your Android device's capabilities.
+The Android Chroot Script is a bash script to conveniently run a chrooted Linux distribution on your Android device.
 
 ## Features:
 1. **Chroot Environment**: The script sets up a chroot environment, isolating the Linux distribution from your Android system, ensuring an independent environment for running Linux applications.
