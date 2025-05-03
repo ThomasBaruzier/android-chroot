@@ -174,13 +174,7 @@ cd fakeroot-*/
 make
 sudo make install
 sudo ln -s /opt/fakeroot/bin/fakeroot /bin/fakeroot
-fakeroot # For testing, you can ignore the "/root/.bashrc: Permission denied" warning
-```
-```bash
-exit # exit fakeroot
-```
-```bash
-# In chroot
+fakeroot --version # verify fakeroot was correctly installed
 cd ..
 rm -rf fakeroot*
 ```
@@ -190,9 +184,10 @@ rm -rf fakeroot*
 # In chroot:
 git clone https://aur.archlinux.org/yay-bin.git
 cd yay-bin
-makepkg -si
+makepkg -si --noconfirm
 cd ..
 rm -rf yay-bin
+yay --version # verify yay was correctly installed
 ```
 
 14. Setup the VNC server and viewer, bspwm, sxhkd, and firefox.
