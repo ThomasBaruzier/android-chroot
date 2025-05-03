@@ -127,7 +127,7 @@ passwd root # change root password
 passwd "$USER" # change user password
 ```
 ```bash
-pacman -S sudo --noconfirm
+pacman --noconfirm  --needed -S sudo
 EDITOR=nano visudo # uncomment `%wheel ALL=(ALL:ALL) NOPASSWD: ALL`
 ```
 ### Basic arch install wiki steps
@@ -166,8 +166,8 @@ Note: You can remove my bashrc after this if you don't like it
 12. Build fakeroot with tcp ipc (dependency for yay)
 ```bash
 # In chroot:
-pacman -S base-devel --needed --noconfirm
-pacman -Rdd fakeroot --noconfirm
+pacman -S --needed --noconfirm base-devel
+pacman -Rdd --noconfirm fakeroot
 curl -O "https://ftp.debian.org/debian/pool/main/f/fakeroot/$(curl 'https://ftp.debian.org/debian/pool/main/f/fakeroot/' | grep -Eo 'fakeroot_[0-9\.]+.orig.tar.gz' | sort -n | tail -n 1)"
 tar xvf fakeroot_*.orig.tar.gz
 cd fakeroot-*/
@@ -190,7 +190,7 @@ rm -rf fakeroot*
 13. Install yay, a popular package manager for the AUR
 ```bash
 # In chroot:
-pacman -S --needed git base-devel
+pacman -S --needed --noconfirm git base-devel
 git clone https://aur.archlinux.org/yay-bin.git
 cd yay-bin
 makepkg -si
