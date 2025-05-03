@@ -132,8 +132,6 @@ EDITOR=nano visudo # uncomment `%wheel ALL=(ALL:ALL) NOPASSWD: ALL`
 ### Basic arch install wiki steps
 ```bash
 ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime # change Europe and Paris to your current localisation 
-```
-```bash
 nano /etc/locale.gen # uncomment 'en_US.UTF-8 UTF-8' or another locale
 locale-gen
 echo 'LANG=en_US.UTF-8' > /etc/locale.conf # LANG is what you uncommented before
