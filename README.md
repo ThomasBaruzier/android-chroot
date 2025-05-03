@@ -1,5 +1,7 @@
 # Android Chroot
 
+![Screenshot_2025-05-03-04-17-27-517_com termux-edit](https://github.com/user-attachments/assets/9c16ed4b-6aaa-410d-b48f-90723fb93af0)
+
 ## Disclaimer:
 ```
 /*
