@@ -75,7 +75,7 @@ sudo mkdir /data/archlinux/
 sudo tar xf ArchLinuxARM-aarch64-latest.tar.gz -C /data/archlinux/
 ```
 
-8. Modify `/data/archlinux/etc/bash.bashrc`.
+8. Modify `/data/archlinux/etc/bash.bashrc`:
 ```bash
 sudo nano /data/archlinux/etc/bash.bashrc
 ```
