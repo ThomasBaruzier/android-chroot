@@ -68,7 +68,7 @@ wget -c http://os.archlinuxarm.org/os/ArchLinuxARM-aarch64-latest.tar.gz
 7. Extract it under `/data/archlinux`
 ```bash
 sudo mkdir -p /data/archlinux/
-sudo tar xf ArchLinuxARM-aarch64-latest.tar.gz -C /data/archlinux/
+sudo tar xf ArchLinuxARM-aarch64-latest.tar.gz -C /data/archlinux/ # you can ignore the "extended header keyword" warnings safely
 ```
 
 8. Modify `/data/archlinux/etc/bash.bashrc`. Add the following code.
