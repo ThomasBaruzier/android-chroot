@@ -127,7 +127,7 @@ passwd root # change root password
 passwd "$USER" # change user password
 ```
 ```bash
-pacman -S sudo
+pacman -S sudo --noconfirm
 EDITOR=nano visudo # uncomment `%wheel ALL=(ALL:ALL) NOPASSWD: ALL`
 ```
 ### Basic arch install wiki steps
