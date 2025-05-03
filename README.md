@@ -110,7 +110,7 @@ pacman-key --init
 pacman-key --populate
 sed -i 's/^\(CheckSpace\)/#\1/; s/^#\(Color\|ParallelDownloads\)/\1/' /etc/pacman.conf # disable `CheckSpace`, enable `Color` and `ParallelDownloads`
 pacman -R --noconfirm linux-aarch64 linux-firmware linux-firmware-whence openssh net-tools # remove optional packages
-while ! pacman -Syu --noconfirm; do sleep 1; done # rarely works first try because of network instability, so we loop it until it finishes
+while ! pacman -Syu --noconfirm sudo git base-devel; do sleep 1; done # rarely works first try because of network instability, so we loop it until it finishes
 pacman -Sc --noconfirm # remove cache to save space
 ```
 ### Setup users and sudo. Please modify the `user` value in `chroot.sh`, here: https://github.com/ThomasBaruzier/android-chroot/blob/c23c9e70bc0b86b6dcdc2a4c4981b6a3801e63aa/chroot.sh#L4
@@ -127,7 +127,6 @@ passwd root # change root password
 passwd "$USER" # change user password
 ```
 ```bash
-pacman --noconfirm  --needed -S sudo
 EDITOR=nano visudo # uncomment `%wheel ALL=(ALL:ALL) NOPASSWD: ALL`
 ```
 ### Basic arch install wiki steps
@@ -166,7 +165,6 @@ Note: You can remove my bashrc after this if you don't like it
 12. Build fakeroot with tcp ipc (dependency for yay)
 ```bash
 # In chroot:
-pacman -S --needed --noconfirm base-devel
 pacman -Rdd --noconfirm fakeroot
 curl -O "https://ftp.debian.org/debian/pool/main/f/fakeroot/$(curl 'https://ftp.debian.org/debian/pool/main/f/fakeroot/' | grep -Eo 'fakeroot_[0-9\.]+.orig.tar.gz' | sort -n | tail -n 1)"
 tar xvf fakeroot_*.orig.tar.gz
@@ -190,7 +188,6 @@ rm -rf fakeroot*
 13. Install yay, a popular package manager for the AUR
 ```bash
 # In chroot:
-pacman -S --needed --noconfirm git base-devel
 git clone https://aur.archlinux.org/yay-bin.git
 cd yay-bin
 makepkg -si
