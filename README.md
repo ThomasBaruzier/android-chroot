@@ -142,6 +142,9 @@ echo 'chroot' > /etc/hostname # set the hostname of your choice
 ```
 ```bash
 exit # exit chroot
+```
+```bash
+# In termux
 ./chroot.sh --umount-only
 ```
 
@@ -176,7 +179,10 @@ sudo ln -s /opt/fakeroot/bin/fakeroot /bin/fakeroot
 fakeroot # For testing, you can ignore the "/root/.bashrc: Permission denied" warning
 ```
 ```bash
-exit # exit fakeroot shell and go back to chroot
+exit # exit fakeroot
+```
+```bash
+# In chroot
 cd ..
 rm -rf fakeroot*
 ```
