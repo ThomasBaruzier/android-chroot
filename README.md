@@ -66,13 +66,12 @@ wget -c http://os.archlinuxarm.org/os/ArchLinuxARM-aarch64-latest.tar.gz
 ```
 
 7. Extract it under `/data/archlinux`
-Stop if mkdir errors, you probably already have a archlinux chroot on your system.
-If not, please stop following this tutorial, this shouldn't happen.
 ```bash
+# Stop if mkdir errors, you probably already have a archlinux chroot on your system. If not, please stop following this tutorial, this shouldn't happen.
 sudo mkdir /data/archlinux/
 ```
-You can ignore tar's "extended header keyword" warnings safely
 ```bash
+# You can ignore tar's "extended header keyword" warnings safely
 sudo tar xf ArchLinuxARM-aarch64-latest.tar.gz -C /data/archlinux/
 ```
 
