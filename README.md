@@ -108,7 +108,7 @@ curl ip.3z.ee # check internet access
 ```bash
 pacman-key --init
 pacman-key --populate
-sed -iE 's/^#(CheckSpace)/\1/; s/^#(Color|ParallelDownloads)/\1/' /etc/pacman.conf # disable `CheckSpace`, enable `Color` and `ParallelDownloads`
+sed -i 's/^\(CheckSpace\)/#\1/; s/^#\(Color\|ParallelDownloads\)/\1/' /etc/pacman.conf # disable `CheckSpace`, enable `Color` and `ParallelDownloads`
 pacman -R --noconfirm linux-aarch64 linux-firmware linux-firmware-whence openssh net-tools # remove optional packages
 while ! pacman -Syu --noconfirm; do sleep 1; done # rarely works first try because of network instability, so we loop it until it finishes
 pacman -Sc --noconfirm # remove cache to save space
