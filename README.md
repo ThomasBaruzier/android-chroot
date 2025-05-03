@@ -139,11 +139,12 @@ locale-gen
 echo 'LANG=en_US.UTF-8' > /etc/locale.conf # LANG is what you uncommented before
 echo 'chroot' > /etc/hostname # set the hostname of your choice
 ```
+Exit chroot:
 ```bash
-exit # exit chroot
+exit
 ```
+In Termux:
 ```bash
-# In termux
 ./chroot.sh --umount-only
 ```
 
