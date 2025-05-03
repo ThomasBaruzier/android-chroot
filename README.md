@@ -125,12 +125,8 @@ USER='tyra' # local user name, change me
 userdel --remove alarm
 useradd -m "$USER"
 usermod -aG wheel "$USER"
-```
-```bash
 passwd root # change root password
 passwd "$USER" # change user password
-```
-```bash
 EDITOR=nano visudo # uncomment `%wheel ALL=(ALL:ALL) NOPASSWD: ALL`
 ```
 ### Basic arch install wiki steps
