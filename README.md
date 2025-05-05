@@ -1,6 +1,8 @@
 # Android Chroot
 
-![Screenshot_2025-05-03-04-17-27-517_com termux-edit](https://github.com/user-attachments/assets/9c16ed4b-6aaa-410d-b48f-90723fb93af0)
+Conveniently run ArchLinuxARM at near native performance on your rooted Android device.
+
+<br><img src="https://github.com/user-attachments/assets/9c16ed4b-6aaa-410d-b48f-90723fb93af0" width="720"><br><br>
 
 ## Disclaimer:
 ```
@@ -14,9 +16,6 @@
 */
 ```
 This script uses root capabilities to be able to run. Please read this ENTIRE readme to limit the risk of harming your device, or even brick it. I really encourage you to use this tool with care, as I almost bricked my device and wiped all my data while developing it. Please see [#Limitations/UNSAFE](https://github.com/ThomasBaruzier/android-chroot/blob/main/README.md#limitations) for further details.
-
-## Description:
-This repo mainly consists of a bash script to conveniently run a chrooted Linux distribution on your Android device.
 
 ## Features:
 1. **Chroot Environment**: The script sets up a chroot environment, isolating the Linux distribution from your Android system, ensuring an independent environment for running Linux applications.
