@@ -174,6 +174,7 @@ cd fakeroot-*/
 make
 sudo make install
 sudo ln -s /opt/fakeroot/bin/fakeroot /bin/fakeroot
+sudo find /opt/fakeroot/ -type d -exec chmod 755 {} + -o -type f \( -path "*/bin/*" -o -name "*.so*" \) -exec chmod 755 {} + -o -type f -exec chmod 644 {} + # fix fakeroot permissions
 fakeroot --version # verify fakeroot was correctly installed
 cd ..
 rm -rf fakeroot*
