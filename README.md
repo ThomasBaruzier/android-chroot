@@ -107,7 +107,7 @@ LD_PRELOAD='' su -c chroot /data/archlinux bash
 # In chroot
 rm -f /etc/resolv.conf
 echo 'nameserver 9.9.9.9' > /etc/resolv.conf
-curl ip.3z.ee # check internet access
+curl ifconfig.me # check internet access
 ```
 ### Setup pacman and packages
 ```bash
